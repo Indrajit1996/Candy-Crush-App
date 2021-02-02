@@ -89,6 +89,51 @@ function App() {
           }
       }
     }
+    // For row with 5 matches.
+    function fiveSquareMatch() {
+      for (let i = 0; i < 95; i ++) {
+        let rowOfFive = [i, i+1, i+2, i+3, i+4]
+        let decidedColor = squares[i].style.backgroundColor
+        const isBlank = squares[i].style.backgroundColor === ''
+        const notValid = [6,7,8,9,16,17,18,19,26,27,28,29,36,37,38,39,46,47,48,49,56,57,58,59,66,67,68,69,76,77,78,79,86,87,88,89];
+        if (notValid.includes(i)) continue
+  
+        if(rowOfFive.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+          if(show) {
+            score += 5;
+            scoreDisplay.current.innerHTML = score
+          } else {
+            score = 0
+            scoreDisplay.current.innerHTML = score
+          }
+          rowOfFive.forEach(index => {
+          squares[index].style.backgroundColor = ''
+          })
+        }
+      }
+    }
+    // For column with 5 matches
+    function checkMatchEqualsFive() {
+      for (let i = 0; i < 59; i ++) {
+        let columnOfFive = [i, i+width, i+width*2, i+width*3, i+width*4]
+        let decidedColor = squares[i].style.backgroundColor
+        const isBlank = squares[i].style.backgroundColor === ''
+  
+        if(columnOfFive.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+          if(show) {
+            score += 5
+            scoreDisplay.current.innerHTML = score
+          } else {
+            score = 0;
+            scoreDisplay.current.innerHTML = score;
+          }
+          columnOfFive.forEach(index => {
+          squares[index].style.backgroundColor = ''
+          })
+        }
+      }
+    }
+    //For Row with 4 matches
     function fourSquareMatch() {
       for (let i = 0; i < 96; i ++) {
         let rowOfFour = [i, i+1, i+2, i+3]
@@ -112,7 +157,7 @@ function App() {
         }
       }
     }
-    fourSquareMatch();
+    // fourSquareMatch();
   
     //For column with Four Matches
     function checkMatchEqualsFour() {
@@ -135,7 +180,7 @@ function App() {
         }
       }
     }
-    checkMatchEqualsFour()
+    // checkMatchEqualsFour()
   
     //For row with Three matches
     function threeSquareMatch() {
@@ -161,7 +206,7 @@ function App() {
         }
       }
     }
-    threeSquareMatch()
+    // threeSquareMatch()
   
     //For column of Three matches.
     function checkMatchEqualsThree() {
@@ -184,10 +229,12 @@ function App() {
         }
       }
     }
-    checkMatchEqualsThree()
+    // checkMatchEqualsThree()
   
     // Update the score every 100 milliseconds.
     window.setInterval(function(){
+        fiveSquareMatch()
+        checkMatchEqualsFive()
         fourSquareMatch()
         checkMatchEqualsFour()
         threeSquareMatch()
